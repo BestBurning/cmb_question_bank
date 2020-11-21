@@ -11,7 +11,7 @@ class CMBQuestionBank extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: '招行积分题库',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
