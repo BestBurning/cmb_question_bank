@@ -27,18 +27,20 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final List<BottomNavigationBarItem> bottomNavigationBarItems = [
-      BottomNavigationBarItem(icon: Icon(Icons.home), label: '答题'),
+      BottomNavigationBarItem(icon: Icon(Icons.brush), label: '答题'),
       BottomNavigationBarItem(icon: Icon(Icons.comment), label: '反馈'),
       BottomNavigationBarItem(icon: Icon(Icons.settings), label: '设置'),
     ];
 
     return Scaffold(
-      body: _pages[_currentIndex],
+      body: SafeArea(
+        child: _pages[_currentIndex],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         // 底部导航
         items: bottomNavigationBarItems,
         currentIndex: _currentIndex,
-        fixedColor: Colors.teal,
+        fixedColor: Theme.of(context).accentColor,
         onTap: (index) {
           _changePage(index);
         },
