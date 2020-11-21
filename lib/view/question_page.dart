@@ -29,29 +29,32 @@ class _QuestionPageState extends State<QuestionPage> {
                     child: TextField(
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
-                          hintText: "请输入关键字",
-                          hintStyle: TextStyle(
-                            height: 0.5,
-                            fontSize: 14.0,
-                          ),
-                          filled: true,
-                          fillColor: Theme.of(context).backgroundColor,
-                          focusColor: Theme.of(context).accentColor,
-                          hoverColor: Theme.of(context).accentColor,
-                          // Theme.of(context).backgroundColor,
-                          prefixIcon: Icon(
-                            Icons.search,
-                            // color: Theme.of(context).accentIconTheme.color,
-                          ),
-                          border: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  width: 10.0,
-                                  style: BorderStyle.solid,
-                                  color: Colors.red
-                                  // Theme.of(context).backgroundColor
-                                  ),
-                              borderRadius: const BorderRadius.all(
-                                  const Radius.circular(50.0)))),
+                        hintText: "请输入关键字",
+                        hintStyle: TextStyle(
+                          height: 0.5,
+                          fontSize: 12.0,
+                        ),
+                        filled: true,
+                        fillColor: Theme.of(context).backgroundColor,
+                        focusColor: Theme.of(context).accentColor,
+                        hoverColor: Theme.of(context).accentColor,
+                        // Theme.of(context).backgroundColor,
+                        prefixIcon: Icon(
+                          Icons.search,
+                          // color: Theme.of(context).accentIconTheme.color,
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(50)),
+                          borderSide: BorderSide(
+                              width: 0, color: Theme.of(context).accentColor),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                width: 0,
+                                color: Theme.of(context).backgroundColor),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(50))),
+                      ),
                       onChanged: (keywords) {
                         print(keywords);
                       },
