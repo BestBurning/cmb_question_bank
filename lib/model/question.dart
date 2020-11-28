@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class Question {
-  int id;
+  String id;
   String question;
   String answer;
   Question({
@@ -11,7 +11,7 @@ class Question {
   });
 
   Question copyWith({
-    int id,
+    String id,
     String question,
     String answer,
   }) {

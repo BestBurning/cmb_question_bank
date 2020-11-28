@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 
-class SettingsPage extends StatefulWidget {
-  @override
-  _SettingsPageState createState() {
-    return _SettingsPageState();
-  }
-}
+class SettingsPage extends StatelessWidget {
 
-class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
+    // TODO: implement build
     return Text("设置");
   }
 }
+

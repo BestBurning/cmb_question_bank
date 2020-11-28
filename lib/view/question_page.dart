@@ -1,22 +1,17 @@
+import 'package:cmb_question_bank/api/providers.dart';
+import 'package:cmb_question_bank/api/question_api.dart';
 import 'package:cmb_question_bank/model/question.dart';
 import 'package:cmb_question_bank/widgets/question_item.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class QuestionPage extends StatefulWidget {
-  @override
-  _QuestionPageState createState() {
-    return _QuestionPageState();
-  }
-}
-
-class _QuestionPageState extends State<QuestionPage> {
+class QuestionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Question q1 = new Question(
         question: "哪项原则是征信机构最基本的职业道德，也是征信立法的主要内容之一", answer: "隐私商业秘密保护原则");
     Question q2 =
         new Question(question: "2006年左右，居民理财渠道较为单一，都在（）上", answer: "存款、国债");
-
     return Container(
       child: Column(
         children: [
@@ -57,6 +52,7 @@ class _QuestionPageState extends State<QuestionPage> {
                       ),
                       onChanged: (keywords) {
                         print(keywords);
+                        context.read<QuestionListProvider>().search(keywords);
                       },
                     ),
                   ))),
@@ -65,24 +61,17 @@ class _QuestionPageState extends State<QuestionPage> {
             thickness: 1,
           ),
           Expanded(
-            flex: 10,
-            child: ListView(
-              children: [
-                QuestionItem(
-                  question: q1,
-                ),
-                QuestionItem(
-                  question: q2,
-                ),
-                QuestionItem(
-                  question: q2,
-                ),
-                QuestionItem(
-                  question: q2,
-                ),
-              ],
-            ),
-          )
+              flex: 10,
+              child: ListView.builder(
+                  itemCount:
+                      context.watch<QuestionListProvider>().questions.length,
+                  itemBuilder: (context, index) {
+                    return QuestionItem(
+                      question: context
+                          .watch<QuestionListProvider>()
+                          .questions[index],
+                    );
+                  }))
         ],
       ),
       decoration: BoxDecoration(

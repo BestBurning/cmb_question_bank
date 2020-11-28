@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
 
+import 'api/providers.dart';
 import 'view/home.dart';
 
 void main() {
   // debugPaintSizeEnabled = true;
-  runApp(CMBQuestionBank());
+  runApp(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => QuestionListProvider()),
+        ],
+        child: CMBQuestionBank(),
+      ),
+
+  );
 }
 
 class CMBQuestionBank extends StatelessWidget {
