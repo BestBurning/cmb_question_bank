@@ -31,10 +31,6 @@ class QuestionPage extends StatelessWidget {
               }))
         ],
       ),
-      decoration: BoxDecoration(
-          // 下滑线浅灰色，宽度1像素
-          border:
-              Border(bottom: BorderSide(color: Colors.grey[200], width: 1.0))),
     );
   }
 }

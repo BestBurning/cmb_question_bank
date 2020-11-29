@@ -2,7 +2,7 @@
     package="com.di1shuai.cmb_question_bank">
    <application
         android:label="cmb_question_bank"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

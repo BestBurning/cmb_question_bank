@@ -34,7 +34,9 @@ class _HomeState extends State<Home> {
 
     return Scaffold(
       body: SafeArea(
-        child: _pages[_currentIndex],
+        child: Container(
+            decoration: BoxDecoration(color: Colors.white10),
+            child: _pages[_currentIndex]),
       ),
       bottomNavigationBar: BottomNavigationBar(
         // 底部导航

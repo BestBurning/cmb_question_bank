@@ -4,19 +4,20 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 import 'api/providers.dart';
+import 'common/global.dart';
 import 'view/home.dart';
 
 void main() {
   // debugPaintSizeEnabled = true;
-  runApp(
-      MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => QuestionListProvider()),
-        ],
-        child: CMBQuestionBank(),
-      ),
-
-  );
+  WidgetsFlutterBinding.ensureInitialized();
+  Global.init().then((e) => runApp(
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => QuestionListProvider()),
+          ],
+          child: CMBQuestionBank(),
+        ),
+      ));
 }
 
 class CMBQuestionBank extends StatelessWidget {

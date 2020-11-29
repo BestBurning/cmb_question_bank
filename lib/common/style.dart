@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Style {
-  static const TextStyle TEXT_STYLE = TextStyle(fontSize: 12);
+  static const TextStyle TEXT_STYLE = TextStyle(fontSize: 12,fontFamily: "ZCOOLXiaoWei");
 
   static final ThemeData DEFAULT_THEME = ThemeData(
     brightness: Brightness.light,
