@@ -19,17 +19,14 @@ class SettingsPage extends StatelessWidget {
             height: 200,
           ),
         ),
-        Card(
-          child: ListTile(
-            // contentPadding:
-            //     EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
-            dense: true,
-            // tileColor: Theme.of(context).cardColor,
-            leading: Icon(FontAwesomeIcons.handHoldingHeart),
-            title: Text("赞赏"),
-            onTap: () {},
-          ),
-        ),
+        // Card(
+        //   child: ListTile(
+        //     dense: true,
+        //     leading: Icon(FontAwesomeIcons.handHoldingHeart),
+        //     title: Text("赞赏"),
+        //     onTap: () {},
+        //   ),
+        // ),
         Card(
           child: Column(
             children: [
