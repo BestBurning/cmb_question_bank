@@ -14,4 +14,9 @@ class QuestionListProvider with ChangeNotifier {
     _questions.addAll(questions);
     notifyListeners();
   }
+
+  clear() {
+    _questions.clear();
+    notifyListeners();
+  }
 }

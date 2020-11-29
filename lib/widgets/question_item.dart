@@ -13,6 +13,7 @@ class QuestionItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
             margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -21,11 +22,11 @@ class QuestionItem extends StatelessWidget {
               children: [
                 Text(
                   '问: ' + question.question,
-                  style: TextStyle(fontSize: 12),
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
                 Text(
                   '答: ' + question.answer,
-                  style: TextStyle(fontSize: 12),
+                  style: Theme.of(context).textTheme.subtitle2,
                 ),
               ],
             )),
