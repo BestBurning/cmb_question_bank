@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'feedback_page.dart';
+import 'submit_page.dart';
 import 'question_page.dart';
 import 'settings_page.dart';
 
@@ -12,7 +12,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final _pages = [
     QuestionPage(),
-    FeedbackPage(),
+    // SubmitPage(),
     SettingsPage(),
   ];
 
@@ -28,7 +28,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final List<BottomNavigationBarItem> bottomNavigationBarItems = [
       BottomNavigationBarItem(icon: Icon(Icons.brush), label: '答题'),
-      BottomNavigationBarItem(icon: Icon(Icons.comment), label: '反馈'),
+      // BottomNavigationBarItem(icon: Icon(Icons.comment), label: '提交'),
       BottomNavigationBarItem(icon: Icon(Icons.settings), label: '设置'),
     ];
 

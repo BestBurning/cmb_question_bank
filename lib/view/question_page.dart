@@ -1,6 +1,4 @@
 import 'package:cmb_question_bank/api/providers.dart';
-import 'package:cmb_question_bank/api/question_api.dart';
-import 'package:cmb_question_bank/model/question.dart';
 import 'package:cmb_question_bank/widgets/question_item.dart';
 import 'package:cmb_question_bank/widgets/search.dart';
 import 'package:flutter/material.dart';

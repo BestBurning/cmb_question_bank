@@ -1,7 +1,9 @@
+import 'package:cmb_question_bank/common/api_url.dart';
 import 'package:cmb_question_bank/common/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
@@ -45,9 +47,7 @@ class SettingsPage extends StatelessWidget {
                 leading: Icon(Icons.feedback),
                 dense: true,
                 title: Text("反馈"),
-                onTap: () {
-                  //TODO 添加反馈连接
-                },
+                onTap: () => _launchURL(API_URL.FEEDBACK_URL),
               ),
             ],
           ),
@@ -75,4 +75,15 @@ class SettingsPage extends StatelessWidget {
       },
     );
   }
+
+  void _launchURL(String url) async {
+
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+
 }
