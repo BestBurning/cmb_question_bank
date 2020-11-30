@@ -6,7 +6,7 @@ on:
       - '*-beta*'
 
 jobs:
-  android-APK-build:
+  android-apk-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -23,7 +23,7 @@ jobs:
           channel: 'dev'
       - name: Env Init
         run: |
-          echo "${{ secrets.SIGNING_KEY }}" | base64 --decode > ${{secrets.KEY_PATH}}
+          echo "${{ secrets.SIGNING_KEY }}" | base64 --decode > android/app/${{secrets.KEY_PATH}}
 #          echo "${{ secrets.PLAY_JSON }}" | base64 --decode > android/play.json
       - name: APK Build
         run:  flutter build apk --obfuscate --split-per-abi --split-debug-info=./info
@@ -38,7 +38,7 @@ jobs:
           artifacts: "build/app/outputs/apk/release/*.apk"
           token: ${{ secrets.GITHUB_TOKEN }}
 
-  android-AAB-build:
+  android-aab-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -55,7 +55,7 @@ jobs:
           channel: 'dev'
       - name: Env Init
         run: |
-          echo "${{ secrets.SIGNING_KEY }}" | base64 --decode > ${{secrets.KEY_PATH}}
+          echo "${{ secrets.SIGNING_KEY }}" | base64 --decode > android/app/${{secrets.KEY_PATH}}
       #          echo "${{ secrets.PLAY_JSON }}" | base64 --decode > android/play.json
       - name: AAB Build
         run: flutter build appbundle --obfuscate --split-debug-info=./info
