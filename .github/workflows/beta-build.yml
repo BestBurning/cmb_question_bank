@@ -7,7 +7,7 @@ on:
     branches: [beat]
 
 jobs:
-  android-build:
+  android-APK-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -22,7 +22,6 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: 'dev'
-      - run: flutter pub get
       - name: Env Init
         run: |
           echo "${{ secrets.SIGNING_KEY }}" | base64 --decode > android/app/key.jks
@@ -33,11 +32,42 @@ jobs:
           KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          KEY_PATH: key.jks
-      - name: AAB Build
-        run: flutter build appbundle --obfuscate --split-debug-info=./info
-      - name: Push AAB/APK Github Releases
+          KEY_PATH: ${{ secrets.KEY_PATH }}
+      - name: Push APK Github Releases
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "build/app/outputs/apk/release/*.apk,build/app/outputs/bundle/release/app-release.aab"
+          artifacts: "build/app/outputs/apk/release/*.apk"
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  android-AAB-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '11'
+      - name: Cache Flutter Dependencies
+        uses: actions/cache@v1
+        with:
+          path: /opt/hostedtoolcache/flutter
+          key: ${{ runner.os }}-flutter
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'dev'
+      - name: Env Init
+        run: |
+          echo "${{ secrets.SIGNING_KEY }}" | base64 --decode > android/app/key.jks
+      #          echo "${{ secrets.PLAY_JSON }}" | base64 --decode > android/play.json
+      - name: AAB Build
+        run: flutter build appbundle --obfuscate --split-debug-info=./info
+        env:
+          KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PATH: ${{ secrets.KEY_PATH }}
+
+      - name: Push AAB Github Releases
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/app/outputs/bundle/release/app-release.aab"
           token: ${{ secrets.GITHUB_TOKEN }}
