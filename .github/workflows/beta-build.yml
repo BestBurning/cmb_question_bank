@@ -25,11 +25,11 @@ jobs:
           echo "${{ secrets.PLAY_JSON }}" | base64 --decode > android/play.json
       - name: APK Build
         run:  flutter build apk --obfuscate --split-per-abi --split-debug-info=./info
-          env:
-            KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
-            KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-            ALIAS: ${{ secrets.KEY_ALIAS }}
-            KEY_PATH: key.jks
+        env:
+          KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PATH: key.jks
       - name: AAB Build
         run: flutter build appbundle --obfuscate --split-debug-info=./info
       - name: Push AAB/APK Github Releases
