@@ -6,39 +6,7 @@ on:
       - '*-beta*'
 
 jobs:
-  android-apk-build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-java@v1
-        with:
-          java-version: '11'
-      - name: Cache Flutter Dependencies
-        uses: actions/cache@v1
-        with:
-          path: /opt/hostedtoolcache/flutter
-          key: ${{ runner.os }}-flutter
-      - uses: subosito/flutter-action@v1
-        with:
-          channel: 'dev'
-      - name: Env Init
-        run: |
-          echo "${{ secrets.SIGNING_KEY }}" | base64 --decode > android/app/${{secrets.KEY_PATH}}
-#          echo "${{ secrets.PLAY_JSON }}" | base64 --decode > android/play.json
-      - name: APK Build
-        run:  flutter build apk --obfuscate --split-per-abi --split-debug-info=./info
-        env:
-          KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          KEY_PATH: ${{ secrets.KEY_PATH }}
-      - name: Push APK Github Releases
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: "build/app/outputs/apk/release/*.apk"
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-  android-aab-build:
+  android-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -57,16 +25,41 @@ jobs:
         run: |
           echo "${{ secrets.SIGNING_KEY }}" | base64 --decode > android/app/${{secrets.KEY_PATH}}
       #          echo "${{ secrets.PLAY_JSON }}" | base64 --decode > android/play.json
-      - name: AAB Build
-        run: flutter build appbundle --obfuscate --split-debug-info=./info
+      - name: AAB/APK Build
+        run: |
+          flutter build appbundle --obfuscate --split-debug-info=./info
+          flutter build apk --obfuscate --split-per-abi --split-debug-info=./info
         env:
           KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PATH: ${{ secrets.KEY_PATH }}
-
       - name: Push AAB Github Releases
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "build/app/outputs/bundle/release/app-release.aab"
+          artifacts: "build/app/outputs/bundle/release/app-release.aab,build/app/outputs/apk/release/*.apk"
           token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload AAB to Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: appbundle
+          path: build/app/outputs/bundle/release/app-release.aab
+
+#  aab-release:
+#    name: Release app to internal track
+#    needs: [ android-aab-build ]
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Get appbundle from artifacts
+#        uses: actions/download-artifact@v2
+#        with:
+#          name: appbundle
+#      - name: Release app to internal track
+#        uses: r0adkll/upload-google-play@v1
+#        with:
+#          serviceAccountJsonPlainText: ${{ secrets.PLAYSTORE_ACCOUNT_KEY }}
+#          packageName: com.fluttercicddemo
+#          releaseFile: app-release.aab
+#          track: internal
+#          whatsNewDirectory: distribution/whatsnew
