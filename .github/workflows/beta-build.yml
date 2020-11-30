@@ -1,10 +1,9 @@
 name: beta-build
 
 on:
-  create:
+  push:
     tags:
       - '*-beta*'
-    branches: [beat]
 
 jobs:
   android-APK-build:
