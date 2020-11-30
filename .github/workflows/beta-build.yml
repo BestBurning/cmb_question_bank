@@ -28,7 +28,7 @@ jobs:
         env:
           KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-          ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PATH: key.jks
       - name: AAB Build
         run: flutter build appbundle --obfuscate --split-debug-info=./info
